@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  rabbit-dev: |2-
+      HOST=35.238.5.40
+      PORT=5672
+      USERNAME=rabbit
+      PASSWORD=EevWZ1BRCjfu
+kind: ConfigMap
+metadata:
+  name: test
+  namespace: default
