@@ -1,0 +1,23 @@
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "test-service"
+  labels:
+    app: "test-service"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "test-service"
+  template:
+    metadata:
+      labels:
+        app: "test-service"
+    spec:
+      containers:
+      - name: "test"
+        image: "gcr.io/project-197316/bitbucket.org/remme-team/swapy-estimation-service:test"
+        envFrom: 
+        - configMapRef:
+            name: rabbit-dev
