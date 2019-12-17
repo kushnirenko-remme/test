@@ -1,0 +1,6 @@
+https://kubernetes.io/docs/tasks/job/parallel-processing-expansion/
+https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/#deploymentcondition-v1beta1-apps
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/
+
+cat deployment.yaml.jinja2|  render_template > deployments/deployments.yaml 
+kubectl create -f deployments/deployments.yaml

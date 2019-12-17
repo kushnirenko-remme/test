@@ -1,0 +1,34 @@
+{%- set params = [{ "crypto-exchange-id": "bittrex", },
+                  { "crypto-exchange-id": "binance", },
+                  { "crypto-exchange-id": "bitfinex", }]
+%}
+{%- for p in params %}
+{%- set name = p["crypto-exchange-id"] %}
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: swapy-pub-exchange-api-service-{{ name }}
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: swapy-pub-exchange-api-service-{{ name }}
+    spec:
+      containers:
+      - name: swapy-pub-exchange-api-service-{{ name }}
+        image: gcr.io/project-197316/bitbucket.org/remme-team/swapy-pub-exchange-api-service:80b1b38
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        args:
+          - "--message-bus-host=$(HOST)"
+          - "--message-bus-port=$(PORT)"
+          - "--message-bus-username=$(USERNAME)"
+          - "--message-bus-password=$(PASSWORD)"
+          - "--crypto-exchange-id={{ name }}"
+        envFrom:
+        - configMapRef:
+            name: rabbit-dev
+---
+{%- endfor %}
